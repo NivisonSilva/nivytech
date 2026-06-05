@@ -1,0 +1,6 @@
+{
+  "name": "NivyTech",
+  "description": "Landing page moderna e minimalista para NivyTech - Soluções em Tecnologia",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
