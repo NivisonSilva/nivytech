@@ -9,20 +9,13 @@ import {
   LineChart,
   Laptop,
   Package,
-  Phone,
   Instagram,
   Menu,
   X,
   ChevronRight,
   ChevronDown,
   Sparkles,
-  Shield,
-  Zap,
-  ArrowUpRight,
   Cpu,
-  Layers,
-  CheckCircle2,
-  ExternalLink,
   MessageCircle,
   HelpCircle
 } from 'lucide-react';
@@ -32,7 +25,6 @@ import {
   CONTACT_INFO, 
   SERVICES, 
   ServiceItem, 
-  PORTFOLIO_PROJECTS, 
   METHODOLOGY_STEPS, 
   FAQS, 
   TECH_STACK 
@@ -59,16 +51,24 @@ export default function App() {
     }
   };
 
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  // Framer Motion: Elegant reveal (fade-in with subtle upward lift)
+  const revealUp = {
+    hidden: { opacity: 0, y: 32 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } 
+    }
   };
 
-  const staggerContainer = {
+  const staggerReveal = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 }
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.08
+      }
     }
   };
 
@@ -90,11 +90,10 @@ export default function App() {
             <BrandLogo size="md" />
           </a>
           
-          <nav className="hidden lg:flex items-center gap-7">
+          <nav className="hidden lg:flex items-center gap-8">
             <a href="#sobre" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">A Marca</a>
             <a href="#diferenciais" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Diferenciais</a>
             <a href="#servicos" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Serviços</a>
-            <a href="#portfolio" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Portfólio</a>
             <a href="#metodologia" className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Como Funciona</a>
             <a href="#simulador" className="text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
@@ -134,7 +133,6 @@ export default function App() {
             <a href="#sobre" onClick={() => setIsMenuOpen(false)} className="text-slate-200 text-sm font-medium py-1">A Marca</a>
             <a href="#diferenciais" onClick={() => setIsMenuOpen(false)} className="text-slate-200 text-sm font-medium py-1">Diferenciais</a>
             <a href="#servicos" onClick={() => setIsMenuOpen(false)} className="text-slate-200 text-sm font-medium py-1">Serviços</a>
-            <a href="#portfolio" onClick={() => setIsMenuOpen(false)} className="text-slate-200 text-sm font-medium py-1">Portfólio</a>
             <a href="#metodologia" onClick={() => setIsMenuOpen(false)} className="text-slate-200 text-sm font-medium py-1">Como Funciona</a>
             <a href="#simulador" onClick={() => setIsMenuOpen(false)} className="text-cyan-400 text-sm font-semibold py-1">Simular Orçamento</a>
             <a href="#faq" onClick={() => setIsMenuOpen(false)} className="text-slate-200 text-sm font-medium py-1">FAQ</a>
@@ -158,22 +156,22 @@ export default function App() {
         <section id="sobre" className="relative max-w-7xl mx-auto px-6 pt-16 pb-24 md:pt-28 md:pb-36">
           <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
             
-            {/* Lançamento Badge */}
+            {/* Lançamento Badge with Reveal */}
             <motion.div 
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              initial="hidden"
+              animate="visible"
+              variants={revealUp}
               className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-950/40 backdrop-blur-md text-cyan-300 text-xs font-bold tracking-widest uppercase mb-8 shadow-[0_0_20px_rgba(6,182,212,0.2)]"
             >
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
               Lançamento Oficial • Nova Identidade
             </motion.div>
 
-            {/* Official 3D Logo Banner Hero Graphic */}
+            {/* Official 3D Logo Banner Hero Graphic with Reveal */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
+              initial="hidden"
+              animate="visible"
+              variants={revealUp}
               className="relative w-full max-w-3xl mb-10 group"
             >
               {/* Outer Glow */}
@@ -196,11 +194,11 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* Typography Headline */}
+            {/* Typography Headline with Reveal */}
             <motion.h1 
               initial="hidden"
               animate="visible"
-              variants={fadeIn}
+              variants={revealUp}
               className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 leading-[1.08] font-heading"
             >
               <span className="block text-white">UMA NOVA MARCA.</span>
@@ -212,18 +210,18 @@ export default function App() {
             <motion.p 
               initial="hidden"
               animate="visible"
-              variants={fadeIn}
+              variants={revealUp}
               className="text-base sm:text-xl text-slate-300 max-w-2xl font-light leading-relaxed mb-10"
             >
               É com orgulho que apresentamos nossa nova identidade: <strong className="text-cyan-400 font-semibold">NivyTech.</strong><br className="hidden sm:block"/>
               Mais moderna, mais inovadora e ainda mais conectada com o <strong className="text-white font-semibold">futuro da tecnologia</strong> e com os resultados do seu negócio.
             </motion.p>
 
-            {/* Hero CTAs */}
+            {/* Hero CTAs with Reveal */}
             <motion.div 
               initial="hidden"
               animate="visible"
-              variants={fadeIn}
+              variants={revealUp}
               className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
             >
               <a 
@@ -246,11 +244,12 @@ export default function App() {
               </a>
             </motion.div>
 
-            {/* Fast Stats / Confidence Badges */}
+            {/* Confidence Badges with Reveal */}
             <motion.div 
               initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              variants={staggerReveal}
               className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-16 pt-10 border-t border-white/10 w-full max-w-4xl"
             >
               {[
@@ -259,10 +258,14 @@ export default function App() {
                 { title: 'Código & Domínio', sub: 'Propriedade total sua' },
                 { title: 'Garantia NivyTech', sub: 'Suporte pós-lançamento' }
               ].map((badge, idx) => (
-                <div key={idx} className="flex flex-col items-center text-center p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                <motion.div 
+                  key={idx} 
+                  variants={revealUp}
+                  className="flex flex-col items-center text-center p-3 rounded-xl bg-white/[0.02] border border-white/5"
+                >
                   <span className="text-white font-bold text-sm sm:text-base font-heading">{badge.title}</span>
                   <span className="text-slate-400 text-xs mt-0.5">{badge.sub}</span>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
 
@@ -271,7 +274,13 @@ export default function App() {
 
         {/* Diferenciais Section */}
         <section id="diferenciais" className="max-w-7xl mx-auto px-6 py-20 relative z-10">
-          <div className="text-center mb-14">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={revealUp}
+            className="text-center mb-14"
+          >
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">Por que a NivyTech?</span>
             <h2 className="text-3xl md:text-5xl font-bold text-white mt-2 font-heading">
               DIFERENCIAIS QUE TRANSFORMAM
@@ -279,13 +288,13 @@ export default function App() {
             <p className="text-slate-400 text-base max-w-xl mx-auto mt-3">
               Não entregamos apenas código: entregamos ativos digitais que geram receita e eficiência.
             </p>
-          </div>
+          </motion.div>
 
           <motion.div 
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
+            viewport={{ once: true, margin: "-60px" }}
+            variants={staggerReveal}
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
           >
             {[
@@ -307,7 +316,7 @@ export default function App() {
             ].map((item, idx) => (
               <motion.div 
                 key={idx}
-                variants={fadeIn}
+                variants={revealUp}
                 className="group p-8 rounded-3xl bg-slate-900/40 border border-white/5 hover:border-cyan-400/40 transition-all hover:bg-slate-900/80 flex flex-col items-start gap-5 shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] relative overflow-hidden"
               >
                 <div className="w-14 h-14 rounded-2xl border border-cyan-400/30 bg-cyan-950/40 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(6,182,212,0.2)]">
@@ -324,25 +333,31 @@ export default function App() {
 
         {/* Services Section */}
         <section id="servicos" className="max-w-7xl mx-auto px-6 py-24 relative">
-          <div className="text-center mb-16">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={revealUp}
+            className="text-center mb-16"
+          >
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">Portfólio de Soluções</span>
             <h2 className="text-3xl md:text-5xl font-bold text-white mt-2 font-heading">NOSSOS SERVIÇOS</h2>
             <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto mt-4">
               Soluções <span className="text-cyan-400 font-medium">inteligentes e personalizadas</span> para <span className="text-cyan-400 font-medium">impulsionar</span> e automatizar o seu negócio.
             </p>
-          </div>
+          </motion.div>
 
           <motion.div 
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
+            viewport={{ once: true, margin: "-60px" }}
+            variants={staggerReveal}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {SERVICES.map((serv) => (
               <motion.div
                 key={serv.id}
-                variants={fadeIn}
+                variants={revealUp}
                 className="relative rounded-2xl border border-white/10 bg-slate-900/50 hover:bg-slate-900/90 hover:border-cyan-400/40 p-8 flex flex-col justify-between transition-all group backdrop-blur-md shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_35px_rgba(6,182,212,0.15)]"
               >
                 {serv.badge && (
@@ -391,78 +406,15 @@ export default function App() {
           </motion.div>
         </section>
 
-        {/* Portfolio Showcase Section */}
-        <section id="portfolio" className="max-w-7xl mx-auto px-6 py-24 relative z-10 border-t border-white/5">
-          <div className="text-center mb-16">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">Casos & Aplicações</span>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mt-2 font-heading">
-              PROJETOS & DEMONSTRAÇÕES
-            </h2>
-            <p className="text-slate-400 text-base max-w-2xl mx-auto mt-4">
-              Veja na prática o padrão visual, a responsividade e a arquitetura das soluções criadas pela NivyTech.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {PORTFOLIO_PROJECTS.map((proj) => (
-              <div 
-                key={proj.id}
-                className="group rounded-3xl border border-white/10 bg-slate-900/60 overflow-hidden hover:border-cyan-400/40 transition-all flex flex-col justify-between shadow-[0_0_30px_rgba(0,0,0,0.3)] hover:shadow-[0_0_40px_rgba(6,182,212,0.2)]"
-              >
-                {/* Image Preview */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
-                  <img 
-                    src={proj.image} 
-                    alt={proj.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
-                  <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-slate-950/80 backdrop-blur-md text-cyan-300 border border-cyan-400/30">
-                    {proj.category}
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2 font-heading">{proj.title}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                      {proj.description}
-                    </p>
-                    
-                    {/* Tech Badges */}
-                    <div className="flex flex-wrap gap-1.5 mb-6">
-                      {proj.techs.map((t, idx) => (
-                        <span key={idx} className="text-[11px] px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                    <span className="text-xs text-emerald-400 font-medium">
-                      🎯 {proj.results}
-                    </span>
-                    <a 
-                      href={CONTACT_INFO.whatsappUrl(`Olá! Vi o projeto ${proj.title} e gostaria de desenvolver algo similar.`)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 hover:text-cyan-300 transition-colors"
-                      title="Quero um projeto similar"
-                    >
-                      <ArrowUpRight className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* Methodology / How It Works */}
-        <section id="metodologia" className="max-w-7xl mx-auto px-6 py-24 relative z-10">
-          <div className="text-center mb-16">
+        <section id="metodologia" className="max-w-7xl mx-auto px-6 py-24 relative z-10 border-t border-white/5">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={revealUp}
+            className="text-center mb-16"
+          >
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">Processo Transparente</span>
             <h2 className="text-3xl md:text-5xl font-bold text-white mt-2 font-heading">
               COMO TRABALHAMOS
@@ -470,12 +422,19 @@ export default function App() {
             <p className="text-slate-400 text-base max-w-xl mx-auto mt-3">
               Da ideia ao lançamento em 4 passos estruturados para você ter total previsibilidade e tranquilidade.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={staggerReveal}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
             {METHODOLOGY_STEPS.map((step, idx) => (
-              <div 
+              <motion.div 
                 key={idx}
+                variants={revealUp}
                 className="relative p-6 rounded-2xl border border-white/5 bg-slate-900/30 hover:bg-slate-900/60 hover:border-cyan-400/30 transition-all flex flex-col justify-between"
               >
                 <div>
@@ -490,40 +449,66 @@ export default function App() {
                   </p>
                 </div>
                 <div className="w-full h-1 bg-gradient-to-r from-cyan-500/40 to-transparent rounded-full mt-6" />
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
-        {/* Interactive Budget Simulator Section */}
+        {/* Interactive Budget Simulator Section with Reveal */}
         <section id="simulador" className="max-w-7xl mx-auto px-6 py-20 relative z-10">
-          <BudgetCalculator />
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={revealUp}
+          >
+            <BudgetCalculator />
+          </motion.div>
         </section>
 
-        {/* Tech Stack Bar */}
+        {/* Tech Stack Bar with Reveal */}
         <section className="max-w-7xl mx-auto px-6 py-16 relative z-10 border-y border-white/5">
-          <div className="text-center mb-8">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={revealUp}
+            className="text-center mb-8"
+          >
             <span className="text-xs uppercase font-bold tracking-[0.2em] text-slate-400">
               Pilhas Tecnológicas Modernas & Seguras
             </span>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 max-w-4xl mx-auto">
+          </motion.div>
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={staggerReveal}
+            className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 max-w-4xl mx-auto"
+          >
             {TECH_STACK.map((tech, idx) => (
-              <div 
+              <motion.div 
                 key={idx} 
+                variants={revealUp}
                 className="px-4 py-2 rounded-xl bg-slate-900/80 border border-white/10 hover:border-cyan-400/40 transition-colors flex items-center gap-2"
               >
                 <span className="w-2 h-2 rounded-full bg-cyan-400" />
                 <span className="text-xs sm:text-sm font-semibold text-slate-200">{tech.name}</span>
                 <span className="text-[10px] text-slate-500 uppercase tracking-wider">{tech.category}</span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
-        {/* FAQ Section */}
+        {/* FAQ Section with Reveal */}
         <section id="faq" className="max-w-4xl mx-auto px-6 py-24 relative z-10">
-          <div className="text-center mb-14">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={revealUp}
+            className="text-center mb-14"
+          >
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">Tire Suas Dúvidas</span>
             <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 font-heading">
               PERGUNTAS FREQUENTES
@@ -531,14 +516,21 @@ export default function App() {
             <p className="text-slate-400 text-sm max-w-lg mx-auto mt-2">
               Respostas diretas e transparentes sobre o nosso modelo de trabalho.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="space-y-4">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={staggerReveal}
+            className="space-y-4"
+          >
             {FAQS.map((faq, idx) => {
               const isOpen = activeFaq === idx;
               return (
-                <div 
+                <motion.div 
                   key={idx}
+                  variants={revealUp}
                   className="rounded-2xl border border-white/10 bg-slate-900/40 overflow-hidden transition-all"
                 >
                   <button
@@ -557,19 +549,25 @@ export default function App() {
                       {faq.answer}
                     </div>
                   )}
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </section>
 
       </main>
 
-      {/* Footer / Contact Banner */}
+      {/* Footer / Contact Banner with Reveal */}
       <footer id="contato" className="border-t border-white/10 bg-[#020617] relative z-20 mt-12">
         <div className="max-w-7xl mx-auto px-6 py-16 relative overflow-hidden">
           
-          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-slate-900/90 via-[#0a102b]/80 to-slate-900/90 border border-cyan-500/20 shadow-[0_0_50px_rgba(6,182,212,0.15)] flex flex-col lg:flex-row items-center justify-between gap-10">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={revealUp}
+            className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-slate-900/90 via-[#0a102b]/80 to-slate-900/90 border border-cyan-500/20 shadow-[0_0_50px_rgba(6,182,212,0.15)] flex flex-col lg:flex-row items-center justify-between gap-10"
+          >
             
             <div className="text-center lg:text-left max-w-xl">
               <BrandLogo size="lg" showSubtitle={true} className="mb-4" />
@@ -612,7 +610,7 @@ export default function App() {
               </a>
             </div>
 
-          </div>
+          </motion.div>
 
           <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 text-center md:text-left">
             <div>
